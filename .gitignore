@@ -4,6 +4,8 @@ dist
 site-shot-*.png
 .env
 .env.local
+server/*.db-wal
+server/*.db-shm
 dist
 build
 coverage
