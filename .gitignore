@@ -1,0 +1,17 @@
+node_modules
+dist
+.codex-logs
+site-shot-*.png
+.env
+.env.local
+dist
+build
+coverage
+backend/node_modules
+frontend/node_modules
+backend/uploads
+frontend/dist
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
