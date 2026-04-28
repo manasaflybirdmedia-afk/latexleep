@@ -1,4 +1,5 @@
-const BASE_URL = "/api";
+const DEFAULT_API_BASE_URL = "/api";
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).replace(/\/$/, "");
 
 function getToken(type = "user") {
   return localStorage.getItem(type === "admin" ? "admin_token" : "user_token");
