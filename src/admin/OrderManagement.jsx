@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Search, Filter } from "lucide-react";
 import { orders as ordersApi } from "../lib/api.js";
-import { formatPrice, formatDateTime, getStatusColor, getStatusLabel } from "../lib/utils.js";
+import { formatPrice, formatDateTime, getStatusColor, getStatusLabel, resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 const STATUS_OPTIONS = ["", "pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "refunded"];
@@ -157,7 +157,7 @@ function OrderDetail({ orderId, onBack }) {
         <div className="space-y-3">
           {order.items?.map((item) => (
             <div key={item.id} className="flex items-center gap-4 py-2 border-b border-border last:border-0">
-              <img src={item.product_image || "/assets/hero-bedroom.jpg"} alt="" className="w-12 h-12 rounded-lg object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+              <img src={resolveAssetUrl(item.product_image || "/assets/hero-bedroom.jpg")} alt="" className="w-12 h-12 rounded-lg object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
               <div className="flex-1"><p className="font-body font-medium text-foreground">{item.product_name}</p><p className="text-xs text-muted-foreground">x{item.quantity} @ {formatPrice(item.discount_price || item.price)}</p></div>
               <p className="font-body font-semibold">{formatPrice(item.subtotal)}</p>
             </div>

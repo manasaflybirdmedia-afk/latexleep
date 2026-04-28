@@ -4,7 +4,7 @@ import { MapPin, CreditCard, Smartphone, Banknote, Check } from "lucide-react";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { orders as ordersApi, customers as customersApi } from "../lib/api.js";
-import { formatPrice } from "../lib/utils.js";
+import { formatPrice, resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 const PAYMENT_METHODS = [
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
                   <div className="space-y-3">
                     {items.map((i) => (
                       <div key={i.id} className="flex items-center gap-3">
-                        <img src={i.primary_image || "/assets/hero-bedroom.jpg"} alt="" className="w-12 h-12 rounded-lg object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                        <img src={resolveAssetUrl(i.primary_image || "/assets/hero-bedroom.jpg")} alt="" className="w-12 h-12 rounded-lg object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                         <div className="flex-1 min-w-0">
                           <p className="font-body text-sm font-medium text-foreground truncate">{i.name}</p>
                           <p className="font-body text-xs text-muted-foreground">Qty: {i.quantity}</p>

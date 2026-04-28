@@ -3,6 +3,7 @@ import multer from "multer";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDb } from "../database.js";
+import { categoryUploadsDir } from "../config.js";
 import { requireAdmin } from "../middleware/auth.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -10,7 +11,7 @@ const router = Router();
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: join(__dirname, "../../uploads/categories"),
+    destination: categoryUploadsDir,
     filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
   }),
   limits: { fileSize: 2 * 1024 * 1024 },

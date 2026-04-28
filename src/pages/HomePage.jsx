@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Check, Star, ArrowRight, MessageCircle, Shield, Truck, Award, RefreshCw, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import { products as productsApi, categories as categoriesApi, settings as settingsApi } from "../lib/api.js";
+import { resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 const HERO_SLIDES = [
@@ -154,7 +155,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {cats.slice(0, 4).map((cat) => (
               <Link key={cat.id} to={`/products?category=${cat.slug}`} className="group relative rounded-2xl overflow-hidden aspect-square bg-secondary hover:shadow-xl transition-all hover:-translate-y-1">
-                <img src={cat.image || "/assets/hero-bedroom.jpg"} alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                <img src={resolveAssetUrl(cat.image || "/assets/hero-bedroom.jpg")} alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="font-heading text-xl font-bold text-white">{cat.name}</h3>

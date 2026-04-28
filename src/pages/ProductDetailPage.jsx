@@ -5,7 +5,7 @@ import { products as productsApi, reviews as reviewsApi } from "../lib/api.js";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useWishlist } from "../contexts/WishlistContext.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
-import { formatPrice, calcDiscount, formatDate } from "../lib/utils.js";
+import { formatPrice, calcDiscount, formatDate, resolveAssetUrl } from "../lib/utils.js";
 import StarRating from "../components/StarRating.jsx";
 import ProductCard from "../components/ProductCard.jsx";
 import toast from "react-hot-toast";
@@ -102,7 +102,7 @@ export default function ProductDetailPage() {
                 <div className="absolute top-4 right-4 z-10 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-sm font-bold">-{discountPct}%</div>
               )}
               <img
-                src={images[imgIdx]?.url || "/assets/hero-bedroom.jpg"}
+                src={resolveAssetUrl(images[imgIdx]?.url || "/assets/hero-bedroom.jpg")}
                 alt={images[imgIdx]?.alt || product.name}
                 className="w-full h-full object-cover"
                 onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }}
@@ -123,7 +123,7 @@ export default function ProductDetailPage() {
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {images.map((img, i) => (
                   <button key={i} onClick={() => setImgIdx(i)} className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${i === imgIdx ? "border-accent" : "border-border hover:border-accent/50"}`}>
-                    <img src={img.url} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                    <img src={resolveAssetUrl(img.url)} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                   </button>
                 ))}
               </div>

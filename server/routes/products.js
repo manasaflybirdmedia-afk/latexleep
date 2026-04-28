@@ -3,13 +3,14 @@ import multer from "multer";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDb } from "../database.js";
+import { productUploadsDir } from "../config.js";
 import { requireAdmin, requireRole } from "../middleware/auth.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router();
 
 const storage = multer.diskStorage({
-  destination: join(__dirname, "../../uploads/products"),
+  destination: productUploadsDir,
   filename: (req, file, cb) => {
     const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     cb(null, `${unique}-${file.originalname}`);

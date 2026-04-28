@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Star, ToggleLeft, ToggleRight, Search, X } from "lucide-react";
 import { products as productsApi, categories as categoriesApi } from "../lib/api.js";
-import { formatPrice } from "../lib/utils.js";
+import { formatPrice, resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 const EMPTY_FORM = {
@@ -140,7 +140,7 @@ export default function ProductManagement() {
               <tr key={p.id}>
                 <td>
                   <div className="flex items-center gap-3">
-                    <img src={p.primary_image || "/assets/hero-bedroom.jpg"} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                    <img src={resolveAssetUrl(p.primary_image || "/assets/hero-bedroom.jpg")} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                     <span className="font-body font-medium text-foreground">{p.name}</span>
                   </div>
                 </td>

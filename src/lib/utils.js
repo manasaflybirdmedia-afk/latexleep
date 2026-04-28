@@ -29,6 +29,19 @@ export function calcDiscount(price, discountPrice) {
   return Math.round(((price - discountPrice) / price) * 100);
 }
 
+export function getApiOrigin() {
+  const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(/\/$/, "");
+  if (apiBaseUrl === "/api") return "";
+  return apiBaseUrl.replace(/\/api$/, "");
+}
+
+export function resolveAssetUrl(url) {
+  if (!url) return url;
+  if (/^(https?:)?\/\//i.test(url) || url.startsWith("data:") || url.startsWith("blob:")) return url;
+  if (url.startsWith("/uploads")) return `${getApiOrigin()}${url}`;
+  return url;
+}
+
 export function getStatusColor(status) {
   const map = {
     pending: "badge-warning",

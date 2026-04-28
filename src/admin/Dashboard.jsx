@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp, ShoppingBag, Users, AlertTriangle, IndianRupee, Package, ArrowRight } from "lucide-react";
 import { orders as ordersApi } from "../lib/api.js";
-import { formatPrice, formatDate, getStatusColor, getStatusLabel } from "../lib/utils.js";
+import { formatPrice, formatDate, getStatusColor, getStatusLabel, resolveAssetUrl } from "../lib/utils.js";
 
 function StatCard({ label, value, icon: Icon, color, sub }) {
   return (
@@ -104,7 +104,7 @@ export default function AdminDashboard() {
             {stats.topProducts?.map((p, i) => (
               <div key={p.name} className="flex items-center gap-3 py-2 border-b border-border last:border-0">
                 <span className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center font-body text-xs font-bold text-muted-foreground shrink-0">{i + 1}</span>
-                <img src={p.primary_image || "/assets/hero-bedroom.jpg"} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                <img src={resolveAssetUrl(p.primary_image || "/assets/hero-bedroom.jpg")} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                 <div className="flex-1 min-w-0">
                   <p className="font-body text-sm font-medium text-foreground truncate">{p.name}</p>
                   <p className="font-body text-xs text-muted-foreground">{p.sold_count} sold</p>

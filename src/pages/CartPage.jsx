@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Trash2, Plus, Minus, ShoppingBag, Tag, X } from "lucide-react";
 import { useCart } from "../contexts/CartContext.jsx";
-import { formatPrice } from "../lib/utils.js";
+import { formatPrice, resolveAssetUrl } from "../lib/utils.js";
 import { coupons as couponsApi } from "../lib/api.js";
 import toast from "react-hot-toast";
 
@@ -61,7 +61,7 @@ export default function CartPage() {
               return (
                 <div key={item.id} className="card p-4 flex gap-4">
                   <Link to={`/products/${item.slug}`} className="w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-secondary">
-                    <img src={item.primary_image || "/assets/hero-bedroom.jpg"} alt={item.name} className="w-full h-full object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                    <img src={resolveAssetUrl(item.primary_image || "/assets/hero-bedroom.jpg")} alt={item.name} className="w-full h-full object-cover" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                   </Link>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">

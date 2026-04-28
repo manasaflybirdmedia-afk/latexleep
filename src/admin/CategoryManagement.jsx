@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, X } from "lucide-react";
 import { categories as categoriesApi } from "../lib/api.js";
+import { resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 export default function CategoryManagement() {
@@ -83,7 +84,7 @@ export default function CategoryManagement() {
         {loading ? [...Array(4)].map((_, i) => <div key={i} className="card h-40 animate-pulse bg-secondary" />) : cats.map((c) => (
           <div key={c.id} className="card overflow-hidden group">
             <div className="h-32 bg-secondary relative overflow-hidden">
-              <img src={c.image || "/assets/hero-bedroom.jpg"} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+              <img src={resolveAssetUrl(c.image || "/assets/hero-bedroom.jpg")} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
               <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button onClick={() => openEdit(c)} className="w-7 h-7 bg-white rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-50"><Edit size={13} /></button>
                 <button onClick={() => handleDelete(c.id)} className="w-7 h-7 bg-white rounded-full flex items-center justify-center text-red-500 hover:bg-red-50"><Trash2 size={13} /></button>

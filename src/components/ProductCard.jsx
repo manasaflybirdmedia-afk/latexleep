@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Heart, ShoppingCart, Star, Check, Zap } from "lucide-react";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useWishlist } from "../contexts/WishlistContext.jsx";
-import { formatPrice, calcDiscount } from "../lib/utils.js";
+import { formatPrice, calcDiscount, resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 export default function ProductCard({ product, showFeatures = false }) {
@@ -12,7 +12,7 @@ export default function ProductCard({ product, showFeatures = false }) {
   const inWishlist = isInWishlist(product.id);
   const discountPct = calcDiscount(product.price, product.discount_price);
   const displayPrice = product.discount_price || product.price;
-  const image = product.primary_image || product.images?.[0]?.url || "/assets/hero-bedroom.jpg";
+  const image = resolveAssetUrl(product.primary_image || product.images?.[0]?.url || "/assets/hero-bedroom.jpg");
 
   const handleAddToCart = (e) => {
     e.preventDefault();

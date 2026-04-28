@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { customers as customersApi } from "../lib/api.js";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useWishlist } from "../contexts/WishlistContext.jsx";
-import { formatPrice } from "../lib/utils.js";
+import { formatPrice, resolveAssetUrl } from "../lib/utils.js";
 import toast from "react-hot-toast";
 
 export default function WishlistPage() {
@@ -66,7 +66,7 @@ export default function WishlistPage() {
                     <Heart size={14} fill="currentColor" />
                   </button>
                   <Link to={`/products/${item.slug}`}>
-                    <img src={item.primary_image || "/assets/hero-bedroom.jpg"} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
+                    <img src={resolveAssetUrl(item.primary_image || "/assets/hero-bedroom.jpg")} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = "/assets/hero-bedroom.jpg"; }} />
                   </Link>
                 </div>
                 <div className="p-4">

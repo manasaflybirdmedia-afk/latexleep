@@ -17,17 +17,18 @@ import inventoryRoutes from "./routes/inventory.js";
 import teamRoutes from "./routes/team.js";
 import paymentRoutes from "./routes/payments.js";
 import settingsRoutes from "./routes/settings.js";
+import { ensureRuntimeDirectories, frontendOrigins, uploadsDir } from "./config.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+ensureRuntimeDirectories();
+
 // Security
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
 app.use(cors({
-  origin: process.env.FRONTEND_URL
-    ? process.env.FRONTEND_URL.split(",").map((s) => s.trim())
-    : ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
+  origin: frontendOrigins,
   credentials: true,
 }));
 
@@ -46,7 +47,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Static files
-app.use("/uploads", express.static(join(__dirname, "../uploads")));
+app.use("/uploads", express.static(uploadsDir));
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -63,6 +64,7 @@ app.use("/api/settings", settingsRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }));
+app.get("/", (req, res) => res.json({ status: "ok", service: "latexleep-api" }));
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -71,7 +73,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🛏️  LATEX Leep Server running on http://localhost:${PORT}`);
+  console.log(`\n🛏️  LATEX Leep Server running on port ${PORT}`);
   console.log(`   Environment: ${process.env.NODE_ENV}`);
   console.log(`   Admin: ${process.env.ADMIN_EMAIL}\n`);
 });
