@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: latexleep-api
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install --ignore-scripts
+    startCommand: npm run start:deploy
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /var/data/latexleep.db
+      - key: UPLOADS_DIR
+        value: /var/data/uploads
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
